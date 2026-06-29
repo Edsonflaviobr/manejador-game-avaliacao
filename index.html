@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MANEJA DOR - Ronda da Dor na UTI</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+<div id="game-container" class="intro-mode">
+  <section id="intro" class="screen active">
+    <img src="img/manejador.jpg" id="logo" alt="MANEJA DOR">
+    <div class="brand-fallback" aria-hidden="true">MANEJA DOR</div>
+
+    <h1>Ronda da Dor na UTI</h1>
+
+    <p class="intro-text">
+      Avalie pacientes críticos, identifique se conseguem comunicar a dor, organize fatores biológicos,
+      emocionais e sociais, e estratifique o risco com base no raciocínio clínico ampliado.
+    </p>
+
+    <button id="start-intro-btn" class="primary-btn">INICIAR JOGO</button>
+  </section>
+
+  <section id="video-screen" class="screen">
+    <video id="intro-video" controls playsinline poster="img/manejador.jpg">
+      <source src="video/manejador.mp4" type="video/mp4">
+    </video>
+
+    <p class="intro-text">
+      Antes de começar a ronda, revise o fluxo de avaliação e informe seu nome para registrar seu desempenho.
+    </p>
+
+    <input type="text" id="player-name" maxlength="28" placeholder="Digite seu nome">
+    <button id="start-btn" class="primary-btn">CONTINUAR</button>
+  </section>
+
+  <section id="game-area" class="screen">
+    <div id="top-panel">
+      <div class="panel-card">Jogador: <span id="player-display">Profissional</span></div>
+      <div class="panel-card">Caso: <span id="case-counter">1</span>/<span id="case-total">5</span></div>
+      <div class="panel-card">Pontuação: <span id="score-display">0</span></div>
+    </div>
+
+    <div id="workflow-panel">
+      <div class="workflow-step active" data-step="1">
+        <span>1</span>
+        <strong>Comunicação</strong>
+      </div>
+      <div class="workflow-step" data-step="2">
+        <span>2</span>
+        <strong>Fatores</strong>
+      </div>
+      <div class="workflow-step" data-step="3">
+        <span>3</span>
+        <strong>Risco</strong>
+      </div>
+    </div>
+
+    <div id="clinical-layout">
+      <aside id="patient-card">
+        <div class="patient-header">
+          <div>
+            <span class="eyebrow">Paciente em UTI</span>
+            <h2 id="patient-title"></h2>
+          </div>
+          <span id="communication-badge"></span>
+        </div>
+
+        <p id="patient-description"></p>
+
+        <div class="vitals-grid">
+          <div>
+            <small>FC</small>
+            <strong id="vital-hr"></strong>
+          </div>
+          <div>
+            <small>PA</small>
+            <strong id="vital-bp"></strong>
+          </div>
+          <div>
+            <small>SpO2</small>
+            <strong id="vital-spo2"></strong>
+          </div>
+          <div>
+            <small>Suporte</small>
+            <strong id="vital-support"></strong>
+          </div>
+        </div>
+
+        <div class="chart-note">
+          <strong>Registro da equipe</strong>
+          <p id="team-note"></p>
+        </div>
+      </aside>
+
+      <main id="decision-card">
+        <div id="step-communication" class="game-step active">
+          <span class="eyebrow">Passo 1</span>
+          <h2>O paciente consegue comunicar a dor?</h2>
+          <div class="choice-grid two-cols">
+            <button class="choice-btn" data-communication="communicates">Paciente comunica</button>
+            <button class="choice-btn" data-communication="notCommunicates">Paciente não comunica</button>
+          </div>
+
+          <div id="assessment-panel" class="sub-panel hidden">
+            <h3 id="assessment-title"></h3>
+            <p id="assessment-help"></p>
+            <div id="assessment-options" class="chip-grid"></div>
+            <button id="confirm-assessment" class="secondary-btn">CONFIRMAR AVALIAÇÃO</button>
+          </div>
+        </div>
+
+        <div id="step-factors" class="game-step">
+          <span class="eyebrow">Passo 2</span>
+          <h2>Classifique os fatores presentes</h2>
+          <p class="step-help">
+            Clique em um fator e depois no campo correspondente. Você também pode arrastar os fatores para as colunas.
+          </p>
+
+          <div id="factor-bank" class="factor-bank"></div>
+
+          <div class="field-board">
+            <div class="field-column biological" data-field="biological">
+              <h3>Biológico</h3>
+              <div class="drop-zone"></div>
+            </div>
+            <div class="field-column emotional" data-field="emotional">
+              <h3>Emocional</h3>
+              <div class="drop-zone"></div>
+            </div>
+            <div class="field-column social" data-field="social">
+              <h3>Social</h3>
+              <div class="drop-zone"></div>
+            </div>
+          </div>
+
+          <button id="confirm-factors" class="secondary-btn">CONFIRMAR FATORES</button>
+        </div>
+
+        <div id="step-risk" class="game-step">
+          <span class="eyebrow">Passo 3</span>
+          <h2>Estratifique o risco do paciente</h2>
+          <p id="risk-summary" class="step-help"></p>
+
+          <div class="risk-grid">
+            <button class="risk-btn low" data-risk="low">
+              <strong>Baixo risco</strong>
+              <span>Poucos fatores em um campo.</span>
+            </button>
+            <button class="risk-btn moderate" data-risk="moderate">
+              <strong>Risco moderado</strong>
+              <span>Vários fatores em um campo ou até dois campos.</span>
+            </button>
+            <button class="risk-btn high" data-risk="high">
+              <strong>Alto risco</strong>
+              <span>Vários fatores nos três campos.</span>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="feedback" role="status">Leia o caso e siga o fluxo de avaliação da dor.</div>
+
+    <button id="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+  </section>
+
+  <section id="final-screen" class="screen">
+    <div id="final-emoji">✓</div>
+    <h1 id="final-title"></h1>
+    <p class="intro-text" id="final-message"></p>
+
+    <div id="final-breakdown"></div>
+
+    <button id="restart-btn" class="primary-btn" onclick="location.reload()">JOGAR NOVAMENTE</button>
+  </section>
+</div>
+
+<audio id="sound-bg" loop>
+  <source src="audio/sunshine-rain.mp3" type="audio/mpeg">
+</audio>
+
+<footer id="credits">
+  <strong>© 2026 ManejaDor.</strong>
+  Produto educacional de Edson Flavio de Sousa - ORCID:0000-0003-2960-6033.
+  Recursos visuais feitos pelas tecnologias Canva® e Gemini®.
+</footer>
+
+<script src="script/script.js"></script>
+</body>
+</html>
