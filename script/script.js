@@ -169,6 +169,7 @@ document.getElementById('start-btn').addEventListener('click', () => {
   const typedName = document.getElementById('player-name').value.trim();
   playerName = typedName || 'Profissional';
   document.getElementById('player-display').textContent = playerName;
+  stopIntroVideo();
   showScreen('game');
   loadCase(0);
   tryPlayAudio();
@@ -239,6 +240,11 @@ function tryPlayAudio() {
 function playIntroVideo() {
   video.currentTime = 0;
   video.play().catch(() => {});
+}
+
+function stopIntroVideo() {
+  video.pause();
+  video.currentTime = 0;
 }
 
 function loadCase(index) {
@@ -530,7 +536,7 @@ function chooseRisk(risk) {
     } else {
       showFinalScreen();
     }
-  }, 2400);
+  }, 6000);
 }
 
 function updateScore() {
