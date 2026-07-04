@@ -96,16 +96,32 @@ const assessmentOptions = {
     { id: 'quality', text: 'Perguntar qualidade da dor', correct: true },
     { id: 'intensity', text: 'Quantificar intensidade com apoio da EVA', correct: true },
     { id: 'worseBetter', text: 'Identificar piora e melhora', correct: true },
+    { id: 'listen', text: 'Escutar o relato sem reduzir a dor a um número', correct: true },
+    { id: 'impact', text: 'Perguntar impacto da dor na respiração, sono ou mobilidade', correct: true },
+    { id: 'meaning', text: 'Explorar o significado da dor para o paciente', correct: true },
+    { id: 'previousPain', text: 'Investigar dores prévias e experiências anteriores', correct: true },
+    { id: 'reassess', text: 'Registrar e reavaliar após intervenção', correct: true },
     { id: 'onlyEva', text: 'Usar apenas EVA e encerrar avaliação', correct: false },
-    { id: 'ignoreNarrative', text: 'Ignorar relato subjetivo se sinais vitais estiverem estáveis', correct: false }
+    { id: 'ignoreNarrative', text: 'Ignorar relato subjetivo se sinais vitais estiverem estáveis', correct: false },
+    { id: 'waitVitalChange', text: 'Esperar alteração importante nos sinais vitais para considerar dor', correct: false },
+    { id: 'familyInstead', text: 'Substituir o relato do paciente pela opinião do acompanhante', correct: false },
+    { id: 'scoreOnly', text: 'Registrar somente um escore e não investigar fatores de piora', correct: false }
   ],
   notCommunicates: [
     { id: 'cpot', text: 'Aplicar CPOT quando indicado', correct: true },
     { id: 'bps', text: 'Aplicar BPS quando indicado', correct: true },
     { id: 'observe', text: 'Associar observação clínica', correct: true },
     { id: 'records', text: 'Consultar registros da equipe', correct: true },
+    { id: 'facial', text: 'Observar expressão facial, tensão muscular e adaptação ventilatória', correct: true },
+    { id: 'procedure', text: 'Relacionar sinais comportamentais a procedimentos e mobilização', correct: true },
+    { id: 'teamReassess', text: 'Registrar achados e reavaliar com a equipe', correct: true },
+    { id: 'knownHistory', text: 'Considerar histórico clínico e lesões associadas', correct: true },
+    { id: 'familyInfo', text: 'Usar informações da família como apoio, sem substituir a escala', correct: true },
     { id: 'waitVerbal', text: 'Aguardar comunicação verbal para avaliar dor', correct: false },
-    { id: 'sedationOnly', text: 'Considerar sedação como ausência de dor', correct: false }
+    { id: 'sedationOnly', text: 'Considerar sedação como ausência de dor', correct: false },
+    { id: 'evaNonverbal', text: 'Aplicar EVA mesmo sem comunicação confiável', correct: false },
+    { id: 'ignoreTeam', text: 'Desconsiderar registros da equipe e avaliar apenas no plantão atual', correct: false },
+    { id: 'vitalsOnly', text: 'Usar somente frequência cardíaca e pressão arterial', correct: false }
   ]
 };
 
@@ -146,6 +162,7 @@ document.getElementById('case-total').textContent = cases.length;
 
 document.getElementById('start-intro-btn').addEventListener('click', () => {
   showScreen('video');
+  playIntroVideo();
 });
 
 document.getElementById('start-btn').addEventListener('click', () => {
@@ -219,6 +236,11 @@ function tryPlayAudio() {
   bgAudio.play().catch(() => {});
 }
 
+function playIntroVideo() {
+  video.currentTime = 0;
+  video.play().catch(() => {});
+}
+
 function loadCase(index) {
   currentCaseIndex = index;
   currentStep = 1;
@@ -290,7 +312,7 @@ function renderAssessmentOptions(choice) {
   help.textContent = currentCase.assessmentHelp;
   optionsArea.innerHTML = '';
 
-  assessmentOptions[choice].forEach((option) => {
+  buildAssessmentOptions(choice).forEach((option) => {
     const chip = document.createElement('button');
     chip.className = 'assessment-chip';
     chip.type = 'button';
@@ -366,10 +388,28 @@ function renderFactors(factors) {
     zone.innerHTML = '';
   });
 
-  factors.forEach((factor) => {
+  shuffleItems(factors).forEach((factor) => {
     const chip = createFactorChip(factor);
     bank.appendChild(chip);
   });
+}
+
+function buildAssessmentOptions(choice) {
+  const correctOptions = assessmentOptions[choice].filter((option) => option.correct);
+  const wrongOptions = assessmentOptions[choice].filter((option) => !option.correct);
+  return shuffleItems([
+    ...shuffleItems(correctOptions).slice(0, 5),
+    ...shuffleItems(wrongOptions).slice(0, 3)
+  ]);
+}
+
+function shuffleItems(items) {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+  return shuffled;
 }
 
 function createFactorChip(factor) {
