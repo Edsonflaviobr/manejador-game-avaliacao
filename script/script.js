@@ -150,6 +150,7 @@ const screens = {
   intro: document.getElementById('intro'),
   video: document.getElementById('video-screen'),
   game: document.getElementById('game-area'),
+  transition: document.getElementById('transition-screen'),
   final: document.getElementById('final-screen')
 };
 
@@ -157,6 +158,24 @@ const bgAudio = document.getElementById('sound-bg');
 const logo = document.getElementById('logo');
 const video = document.getElementById('intro-video');
 const backToTopButton = document.getElementById('back-to-top');
+const readCaseButton = document.getElementById('read-case-btn');
+const instructionsModal = document.getElementById('instructions-modal');
+const instructionsButton = document.getElementById('instructions-btn');
+const closeInstructionsButton = document.getElementById('close-instructions-btn');
+
+const caseAudios = cases.map((_, index) => new Audio(`audio/caso${index + 1}.mp3`));
+const feedbackAudios = {
+  good: new Audio('audio/bom.mp3'),
+  bad: new Audio('audio/ruim.mp3'),
+  correct: new Audio('audio/certo.mp3'),
+  wrong: new Audio('audio/errado.mp3'),
+  victory: new Audio('audio/vitoria.mp3'),
+  gameover: new Audio('audio/gameover.mp3'),
+  final: new Audio('audio/final.mp3')
+};
+
+let caseAudioActive = false;
+let riskLocked = false;
 
 document.getElementById('case-total').textContent = cases.length;
 
@@ -177,12 +196,25 @@ document.getElementById('start-btn').addEventListener('click', () => {
 
 document.getElementById('confirm-assessment').addEventListener('click', confirmAssessment);
 document.getElementById('confirm-factors').addEventListener('click', confirmFactors);
+readCaseButton.addEventListener('click', toggleCaseReader);
+instructionsButton.addEventListener('click', openInstructions);
+closeInstructionsButton.addEventListener('click', closeInstructions);
+instructionsModal.addEventListener('click', (event) => {
+  if (event.target === instructionsModal) {
+    closeInstructions();
+  }
+});
 
 backToTopButton.addEventListener('click', () => {
   document.getElementById('game-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 window.addEventListener('scroll', updateBackToTopVisibility);
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && instructionsModal.classList.contains('open')) {
+    closeInstructions();
+  }
+});
 
 document.querySelectorAll('[data-communication]').forEach((button) => {
   button.addEventListener('click', () => chooseCommunication(button.dataset.communication));
@@ -232,6 +264,16 @@ function showScreen(name) {
   updateBackToTopVisibility();
 }
 
+function openInstructions() {
+  instructionsModal.classList.add('open');
+  instructionsModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeInstructions() {
+  instructionsModal.classList.remove('open');
+  instructionsModal.setAttribute('aria-hidden', 'true');
+}
+
 function tryPlayAudio() {
   bgAudio.volume = 0.28;
   bgAudio.play().catch(() => {});
@@ -248,8 +290,10 @@ function stopIntroVideo() {
 }
 
 function loadCase(index) {
+  stopCaseReader();
   currentCaseIndex = index;
   currentStep = 1;
+  riskLocked = false;
   selectedCommunication = null;
   selectedFactorId = null;
   placements = {};
@@ -377,10 +421,13 @@ function confirmAssessment() {
   updateScore();
 
   if (communicationOk && assessmentOk) {
+    playFeedbackAudio('good');
     setFeedback('Ótimo. Você reconheceu a comunicação do paciente e selecionou uma avaliação adequada.', 'success');
   } else if (!communicationOk) {
+    playFeedbackAudio('bad');
     setFeedback(`Atenção: neste caso, o paciente ${currentCase.communicates ? 'consegue comunicar a dor' : 'não consegue comunicar verbalmente a dor'}. Revise essa primeira decisão.`, 'error');
   } else {
+    playFeedbackAudio('bad');
     setFeedback('A direção está boa, mas a avaliação precisa evitar atalhos. EVA não substitui escuta, e sedação não significa ausência de dor.', 'warning');
   }
 
@@ -491,8 +538,10 @@ function confirmFactors() {
   renderRiskSummary();
 
   if (correctCount === currentCase.factors.length) {
+    playFeedbackAudio('good');
     setFeedback('Excelente classificação. Você conectou os achados aos campos corretos da abordagem ampliada.', 'success');
   } else {
+    playFeedbackAudio('bad');
     setFeedback(`Você classificou ${correctCount} de ${currentCase.factors.length} fatores corretamente. Observe as marcações antes de estratificar o risco.`, 'warning');
   }
 
@@ -512,6 +561,11 @@ function renderRiskSummary() {
 }
 
 function chooseRisk(risk) {
+  if (riskLocked) {
+    return;
+  }
+
+  riskLocked = true;
   const currentCase = cases[currentCaseIndex];
   const isCorrect = risk === currentCase.risk;
 
@@ -530,13 +584,13 @@ function chooseRisk(risk) {
 
   updateScore();
 
-  setTimeout(() => {
-    if (currentCaseIndex + 1 < cases.length) {
-      loadCase(currentCaseIndex + 1);
-    } else {
-      showFinalScreen();
-    }
-  }, 6000);
+  if (currentCaseIndex + 1 < cases.length) {
+    showCaseTransition(isCorrect);
+  } else {
+    playRiskResultAudio(isCorrect);
+    stopCaseReader();
+    setTimeout(showFinalScreen, isCorrect ? 3600 : 1800);
+  }
 }
 
 function updateScore() {
@@ -559,7 +613,112 @@ function updateBackToTopVisibility() {
   backToTopButton.classList.toggle('visible', shouldShow);
 }
 
+function toggleCaseReader() {
+  if (caseAudioActive) {
+    stopCaseReader();
+    return;
+  }
+
+  startCaseReader();
+}
+
+function startCaseReader() {
+  stopCaseReader(false);
+
+  const audio = caseAudios[currentCaseIndex];
+  audio.currentTime = 0;
+  audio.onended = () => stopCaseReader();
+  audio.onerror = () => stopCaseReader();
+
+  caseAudioActive = true;
+  readCaseButton.classList.add('reading');
+  readCaseButton.textContent = '■ Parar áudio';
+  lowerGameAudioForReading();
+  audio.play().catch(() => stopCaseReader());
+}
+
+function stopCaseReader(restoreAudio = true) {
+  caseAudios.forEach((audio) => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+
+  caseAudioActive = false;
+
+  if (readCaseButton) {
+    readCaseButton.classList.remove('reading');
+    readCaseButton.textContent = '▶ Ler caso';
+  }
+
+  if (restoreAudio) {
+    restoreGameAudioAfterReading();
+  }
+}
+
+function lowerGameAudioForReading() {
+  if (!bgAudio.paused) {
+    bgAudio.volume = 0.08;
+  }
+}
+
+function restoreGameAudioAfterReading() {
+  if (!bgAudio.paused) {
+    bgAudio.volume = 0.28;
+  }
+}
+
+function playFeedbackAudio(type) {
+  const audio = feedbackAudios[type];
+
+  if (!audio) {
+    return;
+  }
+
+  if (type !== 'final') {
+    stopCaseReader();
+  }
+
+  audio.pause();
+  audio.currentTime = 0;
+  audio.volume = type === 'final' ? 0.85 : 0.75;
+  audio.play().catch(() => {});
+}
+
+function showCaseTransition(isCorrect) {
+  const transitionScreen = screens.transition;
+  const nextCaseIndex = currentCaseIndex + 1;
+
+  transitionScreen.classList.toggle('success', isCorrect);
+  transitionScreen.classList.toggle('error', !isCorrect);
+  document.getElementById('transition-icon').textContent = isCorrect ? '✓' : '!';
+  document.getElementById('transition-title').textContent = isCorrect ? 'Muito bem!' : 'Atenção ao fluxo';
+  document.getElementById('transition-message').textContent = isCorrect
+    ? 'Isso!! Muito bem. Vamos para mais um caso clínico. Continue assim.'
+    : 'Precisa melhorar, atenção no fluxo da avaliação. Vamos para mais um caso clínico da nossa simulação. Boa sorte.';
+
+  showScreen('transition');
+  playRiskResultAudio(isCorrect);
+
+  if (isCorrect) {
+    createConfetti();
+  }
+
+  setTimeout(() => {
+    showScreen('game');
+    loadCase(nextCaseIndex);
+  }, 6200);
+}
+
+function playRiskResultAudio(isCorrect) {
+  playFeedbackAudio(isCorrect ? 'correct' : 'wrong');
+  playFeedbackAudio(isCorrect ? 'victory' : 'gameover');
+}
+
 function showFinalScreen() {
+  stopCaseReader();
+  bgAudio.pause();
+  bgAudio.currentTime = 0;
+  playFeedbackAudio('final');
   showScreen('final');
   const maxScore = cases.length * 75;
   const percentage = Math.round((score / maxScore) * 100);

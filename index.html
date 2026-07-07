@@ -24,7 +24,7 @@
   </section>
 
   <section id="video-screen" class="screen">
-    <video id="intro-video" controls autoplay playsinline poster="img/manejador.jpg">
+    <video id="intro-video" controls playsinline poster="img/manejador.jpg">
       <source src="video/manejador.mp4" type="video/mp4">
     </video>
 
@@ -33,7 +33,10 @@
     </p>
 
     <input type="text" id="player-name" maxlength="28" placeholder="Digite seu nome">
-    <button id="start-btn" class="primary-btn">CONTINUAR</button>
+    <div class="video-actions">
+      <button id="instructions-btn" class="secondary-outline-btn" type="button">LER INSTRUÇÕES</button>
+      <button id="start-btn" class="primary-btn">CONTINUAR</button>
+    </div>
   </section>
 
   <section id="game-area" class="screen">
@@ -93,6 +96,8 @@
           <strong>Registro da equipe</strong>
           <p id="team-note"></p>
         </div>
+
+        <button id="read-case-btn" class="reader-btn" type="button">▶ Ler caso</button>
       </aside>
 
       <main id="decision-card">
@@ -166,6 +171,39 @@
 
     <button id="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
   </section>
+
+  <section id="transition-screen" class="screen">
+    <div id="transition-icon">✓</div>
+    <h1 id="transition-title"></h1>
+    <p id="transition-message" class="intro-text"></p>
+  </section>
+
+  <div id="instructions-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="instructions-title">
+      <div class="modal-header">
+        <h2 id="instructions-title">Como jogar</h2>
+        <button id="close-instructions-btn" type="button" aria-label="Fechar instruções">×</button>
+      </div>
+
+      <div class="modal-content">
+        <p>
+          Leia o caso clínico com atenção ou clique no botão <strong>Ler caso</strong> para ouvir o áudio do paciente.
+        </p>
+        <p>
+          No primeiro passo, verifique se o paciente consegue se comunicar pelo que foi descrito. Depois, escolha
+          as melhores formas de agir diante do caso e clique em <strong>Confirmar avaliação</strong>.
+        </p>
+        <p>
+          No segundo passo, separe os fatores arrastando ou clicando em cada item e posicionando-o no respectivo
+          campo de abordagem: biológico, emocional ou social.
+        </p>
+        <p>
+          Por fim, classifique o risco do paciente de desenvolver dor crônica. Quanto maior o número de acertos,
+          maior será sua pontuação final.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <section id="final-screen" class="screen">
     <div id="final-emoji">✓</div>
