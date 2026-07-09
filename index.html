@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MANEJA DOR - Ronda da Dor na UTI</title>
+  <title>ManejaDor - Simulador UTI-A</title>
   <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <img src="img/manejador.jpg" id="logo" alt="MANEJA DOR">
     <div class="brand-fallback" aria-hidden="true">MANEJA DOR</div>
 
-    <h1>Ronda da Dor na UTI</h1>
+    <h1>Simulador da Avaliação da Dor na UTI Adulto</h1>
 
     <p class="intro-text">
       Avalie pacientes críticos, identifique se conseguem comunicar a dor, organize fatores biológicos,
@@ -29,7 +29,7 @@
     </video>
 
     <p class="intro-text">
-      Antes de começar a ronda, revise o fluxo de avaliação e informe seu nome para registrar seu desempenho.
+      Antes de começar a simulação, revise o fluxo de avaliação no guia (capítulo 4). </br> Informe seu nome para continuar.
     </p>
 
     <input type="text" id="player-name" maxlength="28" placeholder="Digite seu nome">
@@ -43,7 +43,12 @@
     <div id="top-panel">
       <div class="panel-card">Jogador: <span id="player-display">Profissional</span></div>
       <div class="panel-card">Caso: <span id="case-counter">1</span>/<span id="case-total">5</span></div>
-      <div class="panel-card">Pontuação: <span id="score-display">0</span></div>
+      <div class="panel-card score-card">
+        <div>Pontuação: <span id="score-display">0</span>/100</div>
+        <div class="score-bar" aria-hidden="true">
+          <div id="score-fill"></div>
+        </div>
+      </div>
     </div>
 
     <div id="workflow-panel">
@@ -95,6 +100,14 @@
         <div class="chart-note">
           <strong>Registro da equipe</strong>
           <p id="team-note"></p>
+        </div>
+
+        <div class="case-attention">
+          <strong>Atenção:</strong>
+          <p>
+            Outros fatores biopsicossociais podem estar relacionados ao caso clínico. No entanto, para este jogo,
+            foram apresentados apenas os fatores selecionados para esta simulação.
+          </p>
         </div>
 
         <button id="read-case-btn" class="reader-btn" type="button">▶ Ler caso</button>
@@ -175,6 +188,7 @@
   <section id="transition-screen" class="screen">
     <div id="transition-icon">✓</div>
     <h1 id="transition-title"></h1>
+    <div id="transition-stars" class="star-rating" aria-label="Aproveitamento no caso"></div>
     <p id="transition-message" class="intro-text"></p>
   </section>
 
@@ -187,19 +201,22 @@
 
       <div class="modal-content">
         <p>
-          Leia o caso clínico com atenção ou clique no botão <strong>Ler caso</strong> para ouvir o áudio do paciente.
+         <strong> I - </strong>Leia o caso clínico com atenção ou clique no botão <strong>Ler caso</strong> para ouvir o áudio do paciente.
         </p>
         <p>
-          No primeiro passo, verifique se o paciente consegue se comunicar pelo que foi descrito. Depois, escolha
+         <strong> II - </strong>No primeiro passo, verifique se o paciente consegue se comunicar pelo que foi descrito. Depois, escolha
           as melhores formas de agir diante do caso e clique em <strong>Confirmar avaliação</strong>.
         </p>
         <p>
-          No segundo passo, separe os fatores arrastando ou clicando em cada item e posicionando-o no respectivo
+          <strong> III - </strong>No segundo passo, separe os fatores arrastando ou clicando em cada item e posicionando-o no respectivo
           campo de abordagem: biológico, emocional ou social.
         </p>
         <p>
-          Por fim, classifique o risco do paciente de desenvolver dor crônica. Quanto maior o número de acertos,
+          <strong> IV - </strong>Por fim, classifique o risco do paciente de desenvolver dor crônica. Quanto maior o número de acertos,
           maior será sua pontuação final.
+        </p>
+         <p>
+          <strong> Boa sorte! </strong>Caso tenha dúvida revise o conteúdo do capítulo 4 do guia.
         </p>
       </div>
     </div>

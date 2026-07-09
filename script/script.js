@@ -1,84 +1,83 @@
 const cases = [
   {
-    title: 'Pós-operatório abdominal',
+    title: 'Pós-operatório abdominal em UTI',
     communicates: true,
     badge: 'Comunica',
-    description: 'Paciente acordada, orientada, falante, relata dor abdominal ao tossir e ao mudar de decúbito. Refere medo de respirar fundo por antecipar piora da dor.',
+    description: 'Paciente mulher, 41 anos, pós-operatório imediato de laparotomia por abdome agudo. Está acordada, orientada e falante, relata dor abdominal ao tossir e ao mudar de decúbito. Refere medo de respirar fundo por antecipar piora da dor.',
     vitals: { hr: '104 bpm', bp: '138/84', spo2: '96%', support: 'Cateter nasal' },
-    note: 'Cirurgia abdominal recente, dreno em flanco direito, expressão facial tensa durante mobilização.',
+    note: 'Monitorização contínua, dreno em flanco direito, curativo abdominal extenso e expressão facial tensa durante mobilização no leito.',
     assessmentHelp: 'Neste caso, a EVA pode apoiar a quantificação, mas a escuta clínica continua sendo central.',
     factors: [
       { id: 'c1f1', text: 'Cirurgia abdominal recente', field: 'biological' },
       { id: 'c1f2', text: 'Dreno e procedimento invasivo', field: 'biological' },
       { id: 'c1f3', text: 'Medo de respirar fundo', field: 'emotional' },
       { id: 'c1f4', text: 'Ansiedade ao movimentar-se', field: 'emotional' },
-      { id: 'c1f5', text: 'Acompanhante presente e colaborativo', field: 'social' }
     ],
     risk: 'moderate',
-    riskReason: 'Há vários fatores biológicos e emocionais, com fator social protetor. O risco é moderado por envolver até dois campos principais.'
+    riskReason: 'Há vários fatores biológicos e emocionais. O risco é moderado por envolver até dois campos principais.'
   },
   {
-    title: 'Ventilação mecânica e sedação leve',
+    title: 'Trauma torácico em ventilação mecânica',
     communicates: false,
     badge: 'Não comunica',
-    description: 'Paciente em ventilação mecânica, desperta ao chamado, mas não consegue responder verbalmente. Apresenta tensão muscular e sincronia ventilatória variável.',
+    description: 'Paciente homem, 28 anos, politraumatizado, em ventilação mecânica invasiva e sedação leve. Desperta ao chamado, mas não consegue responder verbalmente. Apresenta tensão muscular generalizada e sincronia ventilatória variável.',
     vitals: { hr: '118 bpm', bp: '152/90', spo2: '94%', support: 'VM invasiva' },
-    note: 'Procedimento de aspiração recente, fratura de costelas registrada, equipe relata caretas durante higiene.',
+    note: 'Fraturas de costelas registradas em prontuário, aspiração traqueal recente e equipe relata caretas durante higiene e mudança de decúbito.',
     assessmentHelp: 'Como o paciente não comunica verbalmente, a avaliação deve usar escala comportamental validada e observação clínica.',
     factors: [
       { id: 'c2f1', text: 'Fratura de costelas', field: 'biological' },
       { id: 'c2f2', text: 'Aspiração e procedimentos dolorosos', field: 'biological' },
       { id: 'c2f3', text: 'Impossibilidade de verbalizar dor', field: 'biological' },
-      { id: 'c2f4', text: 'Agitação ao toque da equipe', field: 'emotional' },
+      { id: 'c2f4', text: 'Histórico de depressão na infância', field: 'emotional' },
       { id: 'c2f5', text: 'Família sem acesso no momento', field: 'social' }
     ],
     risk: 'high',
     riskReason: 'Existem múltiplos fatores biológicos, um componente emocional e um fator social, distribuídos nos três campos. Isso exige cuidado integrado.'
   },
   {
-    title: 'Dor crônica prévia e internação prolongada',
+    title: 'Internação prolongada por sepse',
     communicates: true,
     badge: 'Comunica',
-    description: 'Paciente consciente relata lombalgia crônica, piora após longo período no leito e sensação de pouca confiança para caminhar novamente.',
+    description: 'Paciente homem, 60 anos, em recuperação de sepse pulmonar, com internação prolongada. Está consciente, relata lombalgia crônica, piora após longo período no leito e sensação de pouca confiança para caminhar novamente.',
     vitals: { hr: '88 bpm', bp: '126/78', spo2: '97%', support: 'Ar ambiente' },
-    note: 'Sem novo procedimento invasivo nas últimas 24 horas. Escolaridade baixa e dificuldade para compreender orientações escritas.',
+    note: 'Em desmame de suporte intensivo, sem novo procedimento invasivo nas últimas 24 horas. Escolaridade baixa e dificuldade para compreender orientações escritas.',
     assessmentHelp: 'A entrevista deve explorar intensidade, qualidade, fatores de piora e melhora, sem reduzir a avaliação a um número.',
     factors: [
       { id: 'c3f1', text: 'Dor lombar prévia', field: 'biological' },
       { id: 'c3f2', text: 'Limitação funcional pelo leito', field: 'biological' },
-      { id: 'c3f3', text: 'Baixa autoeficácia para caminhar', field: 'emotional' },
+      { id: 'c3f3', text: 'Experiências traumáticas prévias', field: 'emotional' },
       { id: 'c3f4', text: 'Escolaridade baixa', field: 'social' },
-      { id: 'c3f5', text: 'Dificuldade para compreender orientações', field: 'social' }
+      { id: 'c3f5', text: 'Ansiedade para dormir', field: 'emotional' }
     ],
     risk: 'high',
     riskReason: 'Os fatores aparecem nos três campos: biológico, emocional e social. A avaliação deve integrar essas dimensões.'
   },
   {
-    title: 'Procedimento invasivo isolado',
+    title: 'Curativo de cateter e ferida operatória',
     communicates: false,
     badge: 'Não comunica',
-    description: 'Paciente sonolento, sem resposta verbal consistente. Durante troca de curativo, apresenta discreta expressão facial de desconforto.',
+    description: 'Paciente homem 45 anos, após cirurgia vascular, sonolento e sem resposta verbal consistente. Durante troca de curativo e manipulação de acesso invasivo, apresenta discreta expressão facial de desconforto.',
     vitals: { hr: '92 bpm', bp: '122/76', spo2: '98%', support: 'Máscara simples' },
-    note: 'Sem história de dor prévia conhecida. Família informa boa adaptação prévia ao tratamento.',
+    note: 'Em uso de máscara simples e monitorização contínua. Sem história de dor prévia conhecida. Família informa boa adaptação prévia ao tratamento.',
     assessmentHelp: 'A escolha segura é uma escala comportamental validada associada ao registro da equipe.',
     factors: [
-      { id: 'c4f1', text: 'Troca de curativo dolorosa', field: 'biological' },
+      { id: 'c4f1', text: 'Troca de curativo e manipulação de acesso invasivo', field: 'biological' },
       { id: 'c4f2', text: 'Sonolência limita comunicação', field: 'biological' },
-      { id: 'c4f3', text: 'Rede familiar disponível', field: 'social' }
+      { id: 'c4f3', text: 'Limitação de movimento devido procedimento cirúrgico', field: 'biological' }
     ],
     risk: 'low',
-    riskReason: 'Há poucos fatores, principalmente concentrados no campo biológico, com apoio social preservado. O risco é baixo.'
+    riskReason: 'Há poucos fatores, principalmente concentrados no campo biológico. O risco é baixo.'
   },
   {
-    title: 'Paciente vulnerável e com ansiedade intensa',
+    title: 'Queimadura extensa e ansiedade intensa',
     communicates: true,
     badge: 'Comunica',
-    description: 'Paciente relata dor intensa em membro inferior, medo de piora, dificuldade para dormir e preocupação por estar distante da família.',
+    description: 'Paciente mulher, 32 anos, com queimadura de 2º e 3º graus em membro inferior, relata dor intensa, medo de piora, dificuldade para dormir e preocupação por estar distante da família.',
     vitals: { hr: '112 bpm', bp: '146/86', spo2: '95%', support: 'Cateter nasal' },
-    note: 'Ferida extensa em membro inferior, baixa renda, acesso irregular a cuidado antes da internação e histórico de trauma.',
+    note: 'Queimadura extensa em membro inferior, curativos dolorosos programados, baixa renda, acesso irregular a cuidado antes da internação e histórico de trauma.',
     assessmentHelp: 'Além de quantificar intensidade, é preciso escutar qualidade, local, piora, melhora e significado da dor para o paciente.',
     factors: [
-      { id: 'c5f1', text: 'Ferida extensa em membro inferior', field: 'biological' },
+      { id: 'c5f1', text: 'Queimadura de 2º e 3º graus em membro inferior', field: 'biological' },
       { id: 'c5f2', text: 'Dor intensa e limitação funcional', field: 'biological' },
       { id: 'c5f3', text: 'Ansiedade e medo de piora', field: 'emotional' },
       { id: 'c5f4', text: 'Histórico de trauma', field: 'emotional' },
@@ -108,8 +107,8 @@ const assessmentOptions = {
     { id: 'scoreOnly', text: 'Registrar somente um escore e não investigar fatores de piora', correct: false }
   ],
   notCommunicates: [
-    { id: 'cpot', text: 'Aplicar CPOT quando indicado', correct: true },
-    { id: 'bps', text: 'Aplicar BPS quando indicado', correct: true },
+    { id: 'cpot', text: 'Aplicar CPOT ou BPS', correct: true },
+    { id: 'habitos', text: 'Investigar hábitos do paciente com a família', correct: true },
     { id: 'observe', text: 'Associar observação clínica', correct: true },
     { id: 'records', text: 'Consultar registros da equipe', correct: true },
     { id: 'facial', text: 'Observar expressão facial, tensão muscular e adaptação ventilatória', correct: true },
@@ -137,10 +136,14 @@ const riskLabels = {
   high: 'alto risco'
 };
 
+const MAX_CASE_SCORE = 75;
+const MAX_TOTAL_SCORE = cases.length * MAX_CASE_SCORE;
+
 let playerName = 'Profissional';
 let currentCaseIndex = 0;
 let currentStep = 1;
 let score = 0;
+let currentCaseScore = 0;
 let selectedCommunication = null;
 let selectedFactorId = null;
 let placements = {};
@@ -293,6 +296,7 @@ function loadCase(index) {
   stopCaseReader();
   currentCaseIndex = index;
   currentStep = 1;
+  currentCaseScore = 0;
   riskLocked = false;
   selectedCommunication = null;
   selectedFactorId = null;
@@ -395,6 +399,7 @@ function confirmAssessment() {
   const selectedCorrect = selected.filter((chip) => chip.dataset.correct === 'true').length;
   const selectedWrong = selected.filter((chip) => chip.dataset.correct === 'false').length;
   const totalCorrect = chips.filter((chip) => chip.dataset.correct === 'true').length;
+  const missedCorrect = totalCorrect - selectedCorrect;
   const communicationOk = selectedCommunication === correctCommunication;
   const assessmentOk = selectedCorrect === totalCorrect && selectedWrong === 0;
 
@@ -402,10 +407,14 @@ function confirmAssessment() {
     if (chip.classList.contains('selected') && chip.dataset.correct === 'false') {
       chip.classList.add('wrong-selected');
     }
+
+    if (!chip.classList.contains('selected') && chip.dataset.correct === 'true') {
+      chip.classList.add('missed-correct');
+    }
   });
 
   if (communicationOk) {
-    score += 10;
+    addPoints(10);
   }
 
   const communicationBadge = document.getElementById('communication-badge');
@@ -413,12 +422,10 @@ function confirmAssessment() {
   communicationBadge.className = 'revealed';
 
   if (assessmentOk) {
-    score += 15;
+    addPoints(15);
   } else {
-    score += Math.max(0, selectedCorrect * 3 - selectedWrong * 2);
+    addPoints(Math.max(0, selectedCorrect * 3 - selectedWrong * 2 - missedCorrect * 2));
   }
-
-  updateScore();
 
   if (communicationOk && assessmentOk) {
     playFeedbackAudio('good');
@@ -428,7 +435,7 @@ function confirmAssessment() {
     setFeedback(`Atenção: neste caso, o paciente ${currentCase.communicates ? 'consegue comunicar a dor' : 'não consegue comunicar verbalmente a dor'}. Revise essa primeira decisão.`, 'error');
   } else {
     playFeedbackAudio('bad');
-    setFeedback('A direção está boa, mas a avaliação precisa evitar atalhos. EVA não substitui escuta, e sedação não significa ausência de dor.', 'warning');
+    setFeedback('A direção está boa, mas observe as opções em vermelho: algumas atitudes incorretas podem ter sido escolhidas ou atitudes necessárias podem ter ficado sem seleção.', 'warning');
   }
 
   setTimeout(() => setStep(2), 1400);
@@ -533,8 +540,7 @@ function confirmFactors() {
   });
 
   const factorScore = Math.round((correctCount / currentCase.factors.length) * 25);
-  score += factorScore;
-  updateScore();
+  addPoints(factorScore);
   renderRiskSummary();
 
   if (correctCount === currentCase.factors.length) {
@@ -570,7 +576,7 @@ function chooseRisk(risk) {
   const isCorrect = risk === currentCase.risk;
 
   if (isCorrect) {
-    score += 25;
+    addPoints(25);
     setFeedback(`Correto: ${riskLabels[risk]}. ${currentCase.riskReason}`, 'success');
     createConfetti();
   } else {
@@ -579,7 +585,8 @@ function chooseRisk(risk) {
 
   caseResults.push({
     title: currentCase.title,
-    correctRisk: isCorrect
+    correctRisk: isCorrect,
+    score: currentCaseScore
   });
 
   updateScore();
@@ -587,14 +594,25 @@ function chooseRisk(risk) {
   if (currentCaseIndex + 1 < cases.length) {
     showCaseTransition(isCorrect);
   } else {
-    playRiskResultAudio(isCorrect);
     stopCaseReader();
-    setTimeout(showFinalScreen, isCorrect ? 3600 : 1800);
+    showFinalScreen();
   }
 }
 
 function updateScore() {
-  document.getElementById('score-display').textContent = score;
+  const normalizedScore = getNormalizedScore();
+  document.getElementById('score-display').textContent = normalizedScore;
+  document.getElementById('score-fill').style.width = `${normalizedScore}%`;
+}
+
+function addPoints(points) {
+  score += points;
+  currentCaseScore += points;
+  updateScore();
+}
+
+function getNormalizedScore() {
+  return Math.min(100, Math.round((score / MAX_TOTAL_SCORE) * 100));
 }
 
 function setFeedback(message, type) {
@@ -604,6 +622,15 @@ function setFeedback(message, type) {
 
   if (type && type !== 'neutral') {
     feedback.classList.add(type);
+  }
+
+  if (type === 'error' || type === 'warning') {
+    feedback.classList.remove('attention-pulse');
+    void feedback.offsetWidth;
+    feedback.classList.add('attention-pulse');
+    setTimeout(() => {
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
   }
 }
 
@@ -687,11 +714,13 @@ function playFeedbackAudio(type) {
 function showCaseTransition(isCorrect) {
   const transitionScreen = screens.transition;
   const nextCaseIndex = currentCaseIndex + 1;
+  const casePercent = Math.round((currentCaseScore / MAX_CASE_SCORE) * 100);
 
   transitionScreen.classList.toggle('success', isCorrect);
   transitionScreen.classList.toggle('error', !isCorrect);
   document.getElementById('transition-icon').textContent = isCorrect ? '✓' : '!';
   document.getElementById('transition-title').textContent = isCorrect ? 'Muito bem!' : 'Atenção ao fluxo';
+  renderTransitionStars(casePercent);
   document.getElementById('transition-message').textContent = isCorrect
     ? 'Isso!! Muito bem. Vamos para mais um caso clínico. Continue assim.'
     : 'Precisa melhorar, atenção no fluxo da avaliação. Vamos para mais um caso clínico da nossa simulação. Boa sorte.';
@@ -709,6 +738,16 @@ function showCaseTransition(isCorrect) {
   }, 6200);
 }
 
+function renderTransitionStars(casePercent) {
+  const litStars = Math.round((casePercent / 100) * 5);
+  const stars = Array.from({ length: 5 }, (_, index) => {
+    const className = index < litStars ? ' class="lit"' : '';
+    return `<span${className}>★</span>`;
+  }).join('');
+
+  document.getElementById('transition-stars').innerHTML = stars;
+}
+
 function playRiskResultAudio(isCorrect) {
   playFeedbackAudio(isCorrect ? 'correct' : 'wrong');
   playFeedbackAudio(isCorrect ? 'victory' : 'gameover');
@@ -720,23 +759,23 @@ function showFinalScreen() {
   bgAudio.currentTime = 0;
   playFeedbackAudio('final');
   showScreen('final');
-  const maxScore = cases.length * 75;
-  const percentage = Math.round((score / maxScore) * 100);
+  const maxScore = 100;
+  const percentage = getNormalizedScore();
   const correctRisks = caseResults.filter((result) => result.correctRisk).length;
   const title = percentage >= 85
-    ? 'Ronda concluída com excelente raciocínio clínico'
+    ? 'Simulação concluída com excelente raciocínio clínico'
     : percentage >= 65
-      ? 'Ronda concluída com bom desempenho'
-      : 'Ronda concluída: vale revisar o fluxo';
+      ? 'Simulação concluída com bom desempenho'
+      : 'Simulação concluída: vale revisar o conteúdo do guia';
 
   document.getElementById('final-title').textContent = title;
   document.getElementById('final-message').textContent =
-    `${playerName}, você fez ${score} de ${maxScore} pontos. A proposta é reconhecer comunicação, escolher instrumentos adequados, organizar fatores e estratificar o risco de forma integrada.`;
+    `${playerName}, você fez ${percentage} de ${maxScore} pontos. A proposta é reconhecer comunicação, escolher instrumentos adequados, organizar fatores e estratificar o risco de forma integrada.`;
 
   document.getElementById('final-breakdown').innerHTML = `
     <div class="final-card"><strong>${percentage}%</strong><span>Aproveitamento</span></div>
     <div class="final-card"><strong>${correctRisks}/${cases.length}</strong><span>Riscos corretos</span></div>
-    <div class="final-card"><strong>${score}</strong><span>Pontos</span></div>
+    <div class="final-card"><strong>${percentage}</strong><span>Pontos</span></div>
   `;
 
   createConfetti();
