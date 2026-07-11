@@ -195,28 +195,37 @@
   <div id="instructions-modal" class="modal-backdrop" aria-hidden="true">
     <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="instructions-title">
       <div class="modal-header">
-        <h2 id="instructions-title">Como jogar</h2>
-        <button id="close-instructions-btn" type="button" aria-label="Fechar instruções">×</button>
+        <div class="modal-title-group">
+          <span class="modal-kicker">Guia rápido</span>
+          <h2 id="instructions-title">Como jogar</h2>
+        </div>
+        <div class="modal-header-actions">
+          <button id="listen-instructions-btn" type="button" aria-pressed="false">
+            <span class="listen-icon" aria-hidden="true">▶</span>
+            <span class="listen-label">Ouvir instruções</span>
+          </button>
+          <button id="close-instructions-btn" type="button" aria-label="Fechar instruções">×</button>
+        </div>
       </div>
 
       <div class="modal-content">
-        <p>
-         <strong> I - </strong>Leia o caso clínico com atenção ou clique no botão <strong>Ouvir o caso</strong> para ouvir o áudio do paciente.
+        <p class="instruction-step">
+         <strong class="step-number">I</strong><span>Leia o caso clínico com atenção ou clique no botão <strong>Ouvir o caso</strong> para ouvir o áudio do paciente.</span>
         </p>
-        <p>
-         <strong> II - </strong>No primeiro passo, verifique se o paciente consegue se comunicar pelo que foi descrito. Depois, escolha
-          as melhores formas de agir diante do caso e clique em <strong>Confirmar avaliação</strong>.
+        <p class="instruction-step">
+         <strong class="step-number">II</strong><span>No primeiro passo, verifique se o paciente consegue se comunicar pelo que foi descrito. Depois, escolha
+          as melhores formas de agir diante do caso e clique em <strong>Confirmar avaliação</strong>.</span>
         </p>
-        <p>
-          <strong> III - </strong>No segundo passo, separe os fatores arrastando ou clicando em cada item e posicionando-o no respectivo
-          campo de abordagem: biológico, emocional ou social.
+        <p class="instruction-step">
+          <strong class="step-number">III</strong><span>No segundo passo, separe os fatores arrastando ou clicando em cada item e posicionando-o no respectivo
+          campo de abordagem: biológico, emocional ou social.</span>
         </p>
-        <p>
-          <strong> IV - </strong>Por fim, classifique o risco do paciente de desenvolver dor crônica. Quanto maior o número de acertos,
-          maior será sua pontuação final.
+        <p class="instruction-step">
+          <strong class="step-number">IV</strong><span>Por fim, classifique o risco do paciente de desenvolver dor crônica. Quanto maior o número de acertos,
+          maior será sua pontuação final.</span>
         </p>
-         <p>
-          <strong> Boa sorte! </strong>Caso tenha dúvida revise o conteúdo do capítulo 4 do guia.
+         <p class="instruction-tip">
+          <strong>Boa sorte!</strong> Caso tenha dúvida, revise o conteúdo do capítulo 4 do guia.
         </p>
       </div>
     </div>

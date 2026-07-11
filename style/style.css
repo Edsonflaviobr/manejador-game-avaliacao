@@ -214,12 +214,13 @@ h1 {
 }
 
 .modal-window {
-  width: 680px;
+  width: 760px;
   max-width: 100%;
   max-height: 82vh;
   overflow: hidden;
-  border-radius: 20px;
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 24px;
+  background: #f7fbfd;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
 }
 
@@ -228,15 +229,60 @@ h1 {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 18px 22px;
+  padding: 20px 22px;
   background: linear-gradient(135deg, var(--blue-900), var(--teal-700));
   color: #ffffff;
 }
 
-.modal-header h2 {
-  font-size: 1.35rem;
+.modal-title-group {
+  display: grid;
+  gap: 2px;
 }
 
+.modal-kicker {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.55rem;
+}
+
+.modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#listen-instructions-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--blue-900);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+#listen-instructions-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.18);
+}
+
+#listen-instructions-btn.playing {
+  background: #fff3cd;
+  color: #714f00;
+}
+
+.listen-icon { font-size: 0.82rem; }
 #close-instructions-btn {
   width: 38px;
   height: 38px;
@@ -251,18 +297,43 @@ h1 {
 .modal-content {
   max-height: 62vh;
   overflow-y: auto;
-  padding: 22px;
+  padding: 24px;
 }
 
-.modal-content p {
+.modal-content .instruction-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0 0 12px;
+  padding: 15px 17px;
+  border: 1px solid #dbeaf0;
+  border-radius: 15px;
+  background: #ffffff;
   color: var(--ink);
-  line-height: 1.65;
-  font-size: 1.05rem;
-  margin-bottom: 16px;
+  line-height: 1.55;
+  font-size: 1rem;
+  box-shadow: 0 4px 14px rgba(10, 55, 76, 0.05);
 }
 
-.modal-content p:last-child {
-  margin-bottom: 0;
+.step-number {
+  display: grid;
+  flex: 0 0 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--blue-900), var(--teal-700));
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.instruction-tip {
+  margin: 18px 0 0;
+  padding: 14px 17px;
+  border-left: 4px solid #e4ae28;
+  border-radius: 10px;
+  background: #fff8df;
+  color: var(--ink);
+  line-height: 1.5;
 }
 
 #intro-video {
@@ -1141,5 +1212,37 @@ h1 {
 
   .vitals-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-header {
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .modal-header-actions { gap: 6px; }
+
+  #listen-instructions-btn {
+    min-height: 38px;
+    padding: 0 11px;
+    font-size: 0.78rem;
+  }
+
+  #close-instructions-btn {
+    flex: 0 0 38px;
+  }
+
+  .modal-content { padding: 14px; }
+
+  .modal-content .instruction-step {
+    gap: 10px;
+    padding: 13px;
+    font-size: 0.94rem;
+  }
+
+  .step-number {
+    flex-basis: 34px;
+    height: 34px;
   }
 }

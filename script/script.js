@@ -165,6 +165,8 @@ const readCaseButton = document.getElementById('read-case-btn');
 const instructionsModal = document.getElementById('instructions-modal');
 const instructionsButton = document.getElementById('instructions-btn');
 const closeInstructionsButton = document.getElementById('close-instructions-btn');
+const listenInstructionsButton = document.getElementById('listen-instructions-btn');
+const instructionsAudio = new Audio('audio/instrucaosimulacao.mp3');
 
 const caseAudios = cases.map((_, index) => new Audio(`audio/caso${index + 1}.mp3`));
 const feedbackAudios = {
@@ -202,6 +204,10 @@ document.getElementById('confirm-factors').addEventListener('click', confirmFact
 readCaseButton.addEventListener('click', toggleCaseReader);
 instructionsButton.addEventListener('click', openInstructions);
 closeInstructionsButton.addEventListener('click', closeInstructions);
+listenInstructionsButton.addEventListener('click', toggleInstructionsAudio);
+instructionsAudio.addEventListener('ended', stopInstructionsAudio);
+instructionsAudio.addEventListener('error', stopInstructionsAudio);
+video.addEventListener('play', stopInstructionsAudio);
 instructionsModal.addEventListener('click', (event) => {
   if (event.target === instructionsModal) {
     closeInstructions();
@@ -273,8 +279,34 @@ function openInstructions() {
 }
 
 function closeInstructions() {
+  stopInstructionsAudio();
   instructionsModal.classList.remove('open');
   instructionsModal.setAttribute('aria-hidden', 'true');
+}
+
+function toggleInstructionsAudio() {
+  if (!instructionsAudio.paused) {
+    stopInstructionsAudio();
+    return;
+  }
+
+  video.pause();
+  instructionsAudio.currentTime = 0;
+  instructionsAudio.play().then(() => {
+    listenInstructionsButton.classList.add('playing');
+    listenInstructionsButton.setAttribute('aria-pressed', 'true');
+    listenInstructionsButton.querySelector('.listen-icon').textContent = '■';
+    listenInstructionsButton.querySelector('.listen-label').textContent = 'Parar instruções';
+  }).catch(stopInstructionsAudio);
+}
+
+function stopInstructionsAudio() {
+  instructionsAudio.pause();
+  instructionsAudio.currentTime = 0;
+  listenInstructionsButton.classList.remove('playing');
+  listenInstructionsButton.setAttribute('aria-pressed', 'false');
+  listenInstructionsButton.querySelector('.listen-icon').textContent = '▶';
+  listenInstructionsButton.querySelector('.listen-label').textContent = 'Ouvir instruções';
 }
 
 function tryPlayAudio() {
