@@ -706,7 +706,7 @@ function stopCaseReader(restoreAudio = true) {
 
   if (readCaseButton) {
     readCaseButton.classList.remove('reading');
-    readCaseButton.textContent = '▶ Ler caso';
+    readCaseButton.textContent = '▶ Ouvir o caso';
   }
 
   if (restoreAudio) {
