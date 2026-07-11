@@ -1,6 +1,6 @@
 const cases = [
   {
-    title: 'Pós-operatório abdominal em UTI',
+    title: 'Pós-operatório abdominal',
     communicates: true,
     badge: 'Comunica',
     description: 'Paciente mulher, 41 anos, pós-operatório imediato de laparotomia por abdome agudo. Está acordada, orientada e falante, relata dor abdominal ao tossir e ao mudar de decúbito. Refere medo de respirar fundo por antecipar piora da dor.',
@@ -72,13 +72,13 @@ const cases = [
     title: 'Queimadura extensa e ansiedade intensa',
     communicates: true,
     badge: 'Comunica',
-    description: 'Paciente mulher, 32 anos, com queimadura de 2º e 3º graus em membro inferior, relata dor intensa, medo de piora, dificuldade para dormir e preocupação por estar distante da família.',
+    description: 'Paciente mulher, 32 anos, com queimadura de 2º e 3º graus em membro inferior direito, relata dor intensa, medo de piora, dificuldade para dormir e preocupação por estar distante da família.',
     vitals: { hr: '112 bpm', bp: '146/86', spo2: '95%', support: 'Cateter nasal' },
     note: 'Queimadura extensa em membro inferior, curativos dolorosos programados, baixa renda, acesso irregular a cuidado antes da internação e histórico de trauma.',
     assessmentHelp: 'Além de quantificar intensidade, é preciso escutar qualidade, local, piora, melhora e significado da dor para o paciente.',
     factors: [
-      { id: 'c5f1', text: 'Queimadura de 2º e 3º graus em membro inferior', field: 'biological' },
-      { id: 'c5f2', text: 'Dor intensa e limitação funcional', field: 'biological' },
+      { id: 'c5f1', text: 'limitação funcional em membro inferior direito', field: 'biological' },
+      { id: 'c5f2', text: 'Dor intensa', field: 'biological' },
       { id: 'c5f3', text: 'Ansiedade e medo de piora', field: 'emotional' },
       { id: 'c5f4', text: 'Histórico de trauma', field: 'emotional' },
       { id: 'c5f5', text: 'Baixa renda e acesso irregular ao cuidado', field: 'social' },
