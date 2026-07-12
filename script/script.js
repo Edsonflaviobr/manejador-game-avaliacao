@@ -77,7 +77,7 @@ const cases = [
     note: 'Queimadura extensa em membro inferior, curativos dolorosos programados, baixa renda, acesso irregular a cuidado antes da internação e histórico de trauma.',
     assessmentHelp: 'Além de quantificar intensidade, é preciso escutar qualidade, local, piora, melhora e significado da dor para o paciente.',
     factors: [
-      { id: 'c5f1', text: 'limitação funcional em membro inferior direito', field: 'biological' },
+      { id: 'c5f1', text: 'Limitação funcional em membro inferior direito', field: 'biological' },
       { id: 'c5f2', text: 'Dor intensa', field: 'biological' },
       { id: 'c5f3', text: 'Ansiedade e medo de piora', field: 'emotional' },
       { id: 'c5f4', text: 'Histórico de trauma', field: 'emotional' },
