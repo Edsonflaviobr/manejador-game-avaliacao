@@ -1338,4 +1338,21 @@ h1 {
     flex-basis: 34px;
     height: 34px;
   }
+
+  .binary-options button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 9px 8px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .binary-options button::before {
+    position: static;
+    flex: 0 0 13px;
+    transform: none;
+  }
 }
