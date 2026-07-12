@@ -16,8 +16,8 @@
     <h1>Simulador da Avaliação da Dor na UTI-A</h1>
 
     <p class="intro-text">
-      Avalie pacientes críticos, identifique se conseguem comunicar a dor, organize fatores biológicos,
-      emocionais e sociais, e estratifique o risco com base no raciocínio clínico ampliado.
+      Avalie pacientes críticos, identifique se conseguem comunicar a dor, organize os fatores biológicos,
+      emocionais e sociais e analise a complexidade do caso.
     </p>
 
     <button id="start-intro-btn" class="primary-btn">INICIAR JOGO</button>
@@ -62,7 +62,7 @@
       </div>
       <div class="workflow-step" data-step="3">
         <span>3</span>
-        <strong>Risco</strong>
+        <strong>Complexidade</strong>
       </div>
     </div>
 
@@ -157,25 +157,46 @@
           <button id="confirm-factors" class="secondary-btn">CONFIRMAR FATORES</button>
         </div>
 
-        <div id="step-risk" class="game-step">
+        <div id="step-complexity" class="game-step">
           <span class="eyebrow">Passo 3</span>
-          <h2>Estratifique o risco do paciente</h2>
-          <p id="risk-summary" class="step-help"></p>
+          <h2>Quais aspectos podem aumentar a complexidade do manejo deste caso?</h2>
+          <p class="step-help">Avalie cada aspecto e marque uma resposta antes de confirmar.</p>
 
-          <div class="risk-grid">
-            <button class="risk-btn low" data-risk="low">
-              <strong>Baixo risco</strong>
-              <span>Poucos fatores em um campo.</span>
-            </button>
-            <button class="risk-btn moderate" data-risk="moderate">
-              <strong>Risco moderado</strong>
-              <span>Vários fatores em um campo ou até dois campos.</span>
-            </button>
-            <button class="risk-btn high" data-risk="high">
-              <strong>Alto risco</strong>
-              <span>Vários fatores nos três campos.</span>
-            </button>
+          <div class="complexity-grid">
+            <fieldset class="complexity-card" data-criterion="multipleFactors">
+              <legend>Presença de múltiplos fatores</legend>
+              <div class="binary-options">
+                <button type="button" data-complexity="multipleFactors" data-value="present">Presente</button>
+                <button type="button" data-complexity="multipleFactors" data-value="absent">Ausente</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="complexity-card" data-criterion="multipleFields">
+              <legend>Comprometimento de múltiplos campos biopsicossociais</legend>
+              <div class="binary-options">
+                <button type="button" data-complexity="multipleFields" data-value="present">Presente</button>
+                <button type="button" data-complexity="multipleFields" data-value="absent">Ausente</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="complexity-card" data-criterion="highImpact">
+              <legend>Fatores de alta repercussão clínica</legend>
+              <div class="binary-options">
+                <button type="button" data-complexity="highImpact" data-value="present">Presente</button>
+                <button type="button" data-complexity="highImpact" data-value="absent">Ausente</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="complexity-card" data-criterion="importantInteraction">
+              <legend>Interação importante entre os fatores</legend>
+              <div class="binary-options">
+                <button type="button" data-complexity="importantInteraction" data-value="present">Presente</button>
+                <button type="button" data-complexity="importantInteraction" data-value="absent">Ausente</button>
+              </div>
+            </fieldset>
           </div>
+
+          <button id="confirm-complexity" class="secondary-btn" type="button">CONFIRMAR ASPECTOS</button>
         </div>
       </main>
     </div>
@@ -221,8 +242,7 @@
           campo de abordagem: biológico, emocional ou social.</span>
         </p>
         <p class="instruction-step">
-          <strong class="step-number">IV</strong><span>Por fim, classifique o risco do paciente de desenvolver dor crônica. Quanto maior o número de acertos,
-          maior será sua pontuação final.</span>
+          <strong class="step-number">IV</strong><span>Por fim, analise a complexidade do caso. Avalie os quatro aspectos apresentados e responda <strong>Presente</strong> ou <strong>Ausente</strong> em cada item.</span>
         </p>
          <p class="instruction-tip">
           <strong>Boa sorte!</strong> Caso tenha dúvida, revise o conteúdo do capítulo 4 do guia.
