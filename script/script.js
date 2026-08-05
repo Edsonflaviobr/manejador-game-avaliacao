@@ -6,7 +6,7 @@ const cases = [
     description: 'Paciente mulher, 41 anos, em pós-operatório imediato de laparotomia por abdome agudo. Encontra-se acordada, orientada e comunicativa. Refere dor intensa na região abdominal, principalmente ao tossir, respirar profundamente e durante as mudanças de decúbito. Relata medo de realizar movimentos por acreditar que poderá romper os pontos cirúrgicos e demonstra ansiedade sempre que necessita ser mobilizada pela equipe.',
     vitals: { hr: '104 bpm', bp: '138/84 mmHg', spo2: '96%', support: 'Cateter nasal' },
     note: 'Apresenta dreno abdominal, curativo cirúrgico extenso e expressão facial de dor durante a mobilização no leito.',
-    assessmentHelp: 'Neste caso, a EVA pode apoiar a quantificação, mas a escuta clínica continua sendo central.',
+    assessmentHelp: '',
     factors: [
       { id: 'c1f1', text: 'Cirurgia abdominal recente', field: 'biological' },
       { id: 'c1f2', text: 'Dreno abdominal (procedimento invasivo)', field: 'biological' },
@@ -35,7 +35,7 @@ const cases = [
     description: 'Paciente homem, 28 anos, politraumatizado após acidente automobilístico, internado na UTI em ventilação mecânica invasiva sob sedação leve. Desperta ao chamado, porém não consegue se comunicar verbalmente devido ao tubo orotraqueal. Apresenta fraturas múltiplas de costelas, sendo submetido frequentemente à aspiração traqueal, mudanças de decúbito e outros procedimentos potencialmente dolorosos. Durante esses procedimentos, a equipe observa expressão facial de dor, tensão muscular e assincronia com o ventilador.',
     vitals: { hr: '118 bpm', bp: '152/90 mmHg', spo2: '94%', support: 'Ventilação mecânica invasiva' },
     note: 'No prontuário consta histórico de ansiedade generalizada em acompanhamento psicológico antes da internação. A equipe também registra que, devido à distância, a família consegue realizar visitas apenas esporadicamente, reduzindo sua rede de apoio durante a hospitalização.',
-    assessmentHelp: 'Como o paciente não comunica verbalmente, a avaliação deve usar escala comportamental validada e observação clínica.',
+    assessmentHelp: '',
     factors: [
       { id: 'c2f1', text: 'Fraturas múltiplas de costelas', field: 'biological' },
       { id: 'c2f2', text: 'Procedimentos potencialmente dolorosos (aspiração e mobilização)', field: 'biological' },
@@ -372,7 +372,7 @@ function stopInstructionsAudio() {
 }
 
 function tryPlayAudio() {
-  bgAudio.volume = 0.28;
+  bgAudio.volume = 0.03;
   bgAudio.play().catch(() => {});
 }
 
@@ -533,7 +533,8 @@ function confirmAssessment() {
     setFeedback('A direção está boa, mas observe as opções em vermelho: algumas atitudes incorretas podem ter sido escolhidas ou atitudes necessárias podem ter ficado sem seleção.', 'warning');
   }
 
-  setTimeout(() => setStep(2), 1400);
+  const assessmentTransitionDelay = communicationOk && assessmentOk ? 2500 : 8000;
+  setTimeout(() => setStep(2), assessmentTransitionDelay);
 }
 
 function renderFactors(factors) {
@@ -644,7 +645,8 @@ function confirmFactors() {
     setFeedback(`Você classificou ${correctCount} de ${currentCase.factors.length} fatores corretamente. Observe as marcações antes de avaliar a complexidade do manejo.`, 'warning');
   }
 
-  setTimeout(() => setStep(3), 1600);
+  const factorsTransitionDelay = correctCount === currentCase.factors.length ? 1600 : 5000;
+  setTimeout(() => setStep(3), factorsTransitionDelay);
 }
 
 function resetComplexityStep() {
@@ -888,13 +890,13 @@ function stopCaseReader(restoreAudio = true) {
 
 function lowerGameAudioForReading() {
   if (!bgAudio.paused) {
-    bgAudio.volume = 0.08;
+    bgAudio.volume = 0.02;
   }
 }
 
 function restoreGameAudioAfterReading() {
   if (!bgAudio.paused) {
-    bgAudio.volume = 0.28;
+    bgAudio.volume = 0.03;
   }
 }
 
