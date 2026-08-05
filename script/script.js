@@ -372,7 +372,7 @@ function stopInstructionsAudio() {
 }
 
 function tryPlayAudio() {
-  bgAudio.volume = 0.03;
+  bgAudio.volume = 0.01;
   bgAudio.play().catch(() => {});
 }
 
@@ -890,13 +890,13 @@ function stopCaseReader(restoreAudio = true) {
 
 function lowerGameAudioForReading() {
   if (!bgAudio.paused) {
-    bgAudio.volume = 0.02;
+    bgAudio.volume = 0.00;
   }
 }
 
 function restoreGameAudioAfterReading() {
   if (!bgAudio.paused) {
-    bgAudio.volume = 0.03;
+    bgAudio.volume = 0.01;
   }
 }
 
