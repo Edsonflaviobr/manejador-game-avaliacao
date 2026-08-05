@@ -62,7 +62,7 @@ const cases = [
     communicates: true,
     badge: 'Comunica',
     description: 'Paciente homem, 60 anos, em recuperação de sepse pulmonar após internação prolongada na UTI. Encontra-se consciente, orientado e comunicativo. Relata dor lombar crônica de difícil controle, intensificada após o longo período de permanência no leito. Apresenta limitação funcional importante, necessitando de auxílio para sentar-se e iniciar a marcha. Durante a avaliação, demonstra baixa confiança em sua capacidade de voltar a caminhar, afirmando acreditar que dificilmente conseguirá recuperar sua independência. Relata ainda preocupação constante com sua recuperação, dificuldade para dormir e insegurança em relação ao futuro. Possui baixa escolaridade, apresentando dificuldade para compreender algumas orientações fornecidas pela equipe.',
-    vitals: { hr: '88 bpm', bp: '126/78 mmHg', spo2: '97%', support: 'Ar ambiente' },
+    vitals: { hr: '88 bpm', bp: '126/78 mmHg', spo2: '97%', support: 'Nenhum necessário (ar ambiente)' },
     note: 'Necessita de auxílio para sentar-se e iniciar a marcha. Demonstra baixa confiança na recuperação da independência, preocupação constante, dificuldade para dormir e dificuldade para compreender algumas orientações.',
     assessmentHelp: 'A entrevista deve explorar intensidade, qualidade, fatores de piora e melhora, sem reduzir a avaliação a um número.',
     factors: [
@@ -90,7 +90,7 @@ const cases = [
     title: 'Curativo de cateter e ferida operatória',
     communicates: false,
     badge: 'Não comunica',
-    description: 'Paciente homem, 45 anos, em pós-operatório de cirurgia vascular, internado na UTI. Encontra-se sonolento, com comunicação verbal limitada, porém desperta aos estímulos. Durante a troca do curativo cirúrgico e a manipulação do acesso venoso central, apresenta discreta expressão facial de desconforto e aumento transitório da tensão muscular. Não há registro de dor crônica prévia, limitações funcionais importantes, ansiedade, depressão ou outras condições emocionais associadas. A família participa ativamente do cuidado e mantém contato frequente com a equipe, oferecendo bom suporte durante a internação.',
+    description: 'Paciente homem, 45 anos, em pós-operatório de cirurgia vascular devido trombose venosa profunda, internado na UTI. Encontra-se sonolento, com comunicação verbal limitada, porém desperta aos estímulos. Durante a troca do curativo cirúrgico e a manipulação do acesso venoso central, apresenta discreta expressão facial de desconforto e aumento transitório da tensão muscular. Não há registro de dor crônica prévia, limitações funcionais importantes, ansiedade, depressão ou outras condições emocionais associadas. A família participa ativamente do cuidado e mantém contato frequente com a equipe, oferecendo bom suporte durante a internação.',
     vitals: { hr: '92 bpm', bp: '122/76 mmHg', spo2: '98%', support: 'Máscara simples' },
     note: 'Apresenta discreta expressão facial de desconforto e aumento transitório da tensão muscular durante a troca do curativo e a manipulação do acesso venoso central. A família oferece bom suporte durante a internação.',
     assessmentHelp: 'A escolha segura é uma escala comportamental validada associada ao registro da equipe.',
@@ -100,14 +100,13 @@ const cases = [
       { id: 'c4f3', text: 'Procedimento cirúrgico recente', field: 'biological' }
     ],
     complexityKey: {
-      multipleFactors: 'absent',
+      multipleFactors: 'present',
       multipleFields: 'absent',
       highImpact: 'absent',
       importantInteraction: 'absent'
     },
     complexityFeedback: {
       success: 'Embora o paciente apresente fatores biológicos relacionados ao procedimento cirúrgico e à limitação temporária da comunicação, não foram identificados fatores emocionais ou sociais relevantes, nem fatores de alta repercussão clínica ou interação importante entre diferentes dimensões biopsicossociais. Nesse contexto, o manejo tende a ser menos complexo, mantendo-se a necessidade de monitoramento e reavaliação conforme a evolução clínica.',
-      multipleFactors: 'A presença de mais de um fator no mesmo campo não caracteriza, necessariamente, um caso de maior complexidade biopsicossocial. A análise deve considerar também a distribuição entre os campos, a repercussão clínica e a interação entre os fatores.',
       multipleFields: 'Neste caso, os fatores identificados estão restritos ao campo biológico. Não foram descritos fatores emocionais ou sociais relevantes.',
       highImpact: 'Apesar de o paciente necessitar de procedimentos potencialmente dolorosos, o caso não descreve fatores frequentemente associados à alta repercussão clínica, como dor intensa, limitação funcional importante, delirium, ansiedade grave ou outras condições que aumentem significativamente a complexidade do manejo.',
       importantInteraction: 'Os fatores biológicos descritos estão relacionados ao procedimento cirúrgico e à avaliação da dor, mas não há elementos que indiquem interação relevante entre diferentes dimensões biopsicossociais.'
